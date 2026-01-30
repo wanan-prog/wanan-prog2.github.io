@@ -1,0 +1,353 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>博客搭建教程 | wanan's blog</title><meta name="author" content="wanan"><meta name="copyright" content="wanan"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="新手零门槛搭建个人博客：从0到1完整教程本文将以「Hexo+GitHub Pages」组合为例（免费、稳定、新手友好），从准备工具到博客上线、个性化设置，每一步都配详细说明、参考链接和实用代码。 一、搭建前准备：明确目标+必备工具1.1 明确博客核心需求新手先想清楚3个问题，再选择搭建方案：  是否需要免费方案？（推荐GitHub Pages，零成本）  是否想自定义样式？（Hexo主题丰富，可视">
+<meta property="og:type" content="website">
+<meta property="og:title" content="博客搭建教程">
+<meta property="og:url" content="https://wanan-prog2.github.io/2026/01/29/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/index.html">
+<meta property="og:site_name" content="wanan&#39;s blog">
+<meta property="og:description" content="新手零门槛搭建个人博客：从0到1完整教程本文将以「Hexo+GitHub Pages」组合为例（免费、稳定、新手友好），从准备工具到博客上线、个性化设置，每一步都配详细说明、参考链接和实用代码。 一、搭建前准备：明确目标+必备工具1.1 明确博客核心需求新手先想清楚3个问题，再选择搭建方案：  是否需要免费方案？（推荐GitHub Pages，零成本）  是否想自定义样式？（Hexo主题丰富，可视">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://wanan-prog2.github.io/img/butterfly-icon.png">
+<meta property="article:published_time" content="2026-01-29T15:20:20.000Z">
+<meta property="article:modified_time" content="2026-01-30T10:07:11.621Z">
+<meta property="article:author" content="wanan">
+<meta property="article:tag" content="教程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://wanan-prog2.github.io/img/butterfly-icon.png"><script type="application/ld+json"></script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://wanan-prog2.github.io/2026/01/29/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=5.5.4"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@7.1.0/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.13.0/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '博客搭建教程',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'posts'
+}</script><meta name="generator" content="Hexo 8.1.1"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img text-center"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data text-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">2</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/list/"><i class="fa-fw fas fa-list"></i><span> List</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div></div></div><div class="page" id="body-wrap"><header class="not-home-page" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><img class="site-icon" src="/img/logo.png" alt="Logo"><span class="site-name">wanan's blog</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> Home</span></a></div><div class="menus_item"><a class="site-page" href="/list/"><i class="fa-fw fas fa-list"></i><span> List</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> Music</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> Tags</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> Categories</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> Link</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> About</span></a></div></div><div id="toggle-menu"><span class="site-page"><i class="fas fa-bars fa-fw"></i></span></div></div></nav><div id="page-site-info"><h1 id="site-title">博客搭建教程</h1></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="新手零门槛搭建个人博客：从0到1完整教程"><a href="#新手零门槛搭建个人博客：从0到1完整教程" class="headerlink" title="新手零门槛搭建个人博客：从0到1完整教程"></a>新手零门槛搭建个人博客：从0到1完整教程</h1><p>本文将以「Hexo+GitHub Pages」组合为例（免费、稳定、新手友好），从准备工具到博客上线、个性化设置，每一步都配详细说明、参考链接和实用代码。</p>
+<h2 id="一、搭建前准备：明确目标-必备工具"><a href="#一、搭建前准备：明确目标-必备工具" class="headerlink" title="一、搭建前准备：明确目标+必备工具"></a>一、搭建前准备：明确目标+必备工具</h2><h3 id="1-1-明确博客核心需求"><a href="#1-1-明确博客核心需求" class="headerlink" title="1.1 明确博客核心需求"></a>1.1 明确博客核心需求</h3><p>新手先想清楚3个问题，再选择搭建方案：</p>
+<ul>
+<li><p>是否需要免费方案？（推荐GitHub Pages，零成本）</p>
+</li>
+<li><p>是否想自定义样式？（Hexo主题丰富，可视化配置）</p>
+</li>
+<li><p>是否需要后期升级？（Hexo支持插件扩展，满足后续需求）</p>
+</li>
+</ul>
+<p>本文方案：Hexo（静态博客框架，轻量快速）+ GitHub Pages（免费托管）+ 主题（Next&#x2F;Butterfly，新手友好），适合90%的新手。</p>
+<h3 id="1-2-必备工具下载与安装（附官方教程）"><a href="#1-2-必备工具下载与安装（附官方教程）" class="headerlink" title="1.2 必备工具下载与安装（附官方教程）"></a>1.2 必备工具下载与安装（附官方教程）</h3><p>搭建前需要安装3个工具，全部免费，按步骤来就行：</p>
+<ol>
+<li><p><strong>Git（版本控制工具，用于部署博客）</strong></p>
+<ul>
+<li><p>下载地址：<a target="_blank" rel="noopener" href="https://git-scm.com/downloads">Git官方下载</a>（根据自己的操作系统选择Windows&#x2F;Mac&#x2F;Linux版本）</p>
+</li>
+<li><p>安装教程：<a target="_blank" rel="noopener" href="https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git">Git官方安装指南（中文）</a> | 视频教程：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1FE411P7B3/">B站新手Git安装教程（5分钟）</a></p>
+</li>
+<li><p>验证是否安装成功：打开电脑终端（Windows用CMD&#x2F;PowerShell，Mac用终端），输入<code>git --version</code>，如果显示版本号（如git version 2.43.0），说明安装成功。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>Node.js（运行Hexo的环境）</strong></p>
+<ul>
+<li><p>下载地址：<a target="_blank" rel="noopener" href="https://nodejs.org/zh-cn/download/">Node.js官方下载</a>（新手推荐下载“长期支持版LTS”，兼容性更好）</p>
+</li>
+<li><p>安装教程：<a target="_blank" rel="noopener" href="https://www.runoob.com/nodejs/nodejs-install-setup.html">菜鸟教程Node.js安装（图文+视频）</a></p>
+</li>
+<li><p>验证是否安装成功：终端输入 <code>node -v</code> 和 <code>npm -v</code>，均显示版本号则安装成功（npm是Node.js自带的包管理工具，无需单独安装）。</p>
+</li>
+</ul>
+</li>
+<li><p><strong>代码编辑器（可选，推荐VS Code，方便编辑博客内容和配置）</strong></p>
+<ul>
+<li><p>下载地址：<a target="_blank" rel="noopener" href="https://code.visualstudio.com/Download">VS Code官方下载</a></p>
+</li>
+<li><p>新手必备插件：Chinese (Simplified)（中文汉化）、Markdown All in One（Markdown编辑优化）、Hexo Helper（Hexo快捷命令）</p>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="二、核心步骤：从注册到博客上线"><a href="#二、核心步骤：从注册到博客上线" class="headerlink" title="二、核心步骤：从注册到博客上线"></a>二、核心步骤：从注册到博客上线</h2><h3 id="2-1-注册GitHub账号（免费托管博客）"><a href="#2-1-注册GitHub账号（免费托管博客）" class="headerlink" title="2.1 注册GitHub账号（免费托管博客）"></a>2.1 注册GitHub账号（免费托管博客）</h3><p>GitHub是全球最大的代码托管平台，其Pages功能可以免费托管静态网站（博客就是静态网站），新手注册完全免费：</p>
+<ol>
+<li><p>打开GitHub官网：<a target="_blank" rel="noopener" href="https://github.com/">https://github.com/</a>，点击右上角“Sign up”注册。</p>
+</li>
+<li><p>填写注册信息：用户名（将作为博客域名的一部分，如xxx.github.io，建议简单好记）、邮箱、密码。</p>
+</li>
+<li><p>验证邮箱：注册后GitHub会发验证邮件，点击邮件中的链接完成验证（必须验证，否则无法创建仓库）。</p>
+</li>
+<li><p>创建博客仓库（关键！）：</p>
+<ul>
+<li><p>登录后，点击右上角“+”→“New repository”（新建仓库）。</p>
+</li>
+<li><p>Repository name（仓库名称）：必须填写 <code>你的用户名.github.io</code>（例如我的用户名是zhangsan，就填zhangsan.github.io），否则无法通过GitHub Pages访问。</p>
+</li>
+<li><p>Description（描述）：可选，填写“我的个人博客”即可。</p>
+</li>
+<li><p>Visibility（可见性）：选择“Public”（公开，免费），Private需要付费。</p>
+</li>
+<li><p>勾选“Add a README file”（添加README文件），然后点击“Create repository”（创建仓库）。</p>
+</li>
+</ul>
+</li>
+</ol>
+<p>参考教程：<a target="_blank" rel="noopener" href="https://docs.github.com/zh/get-started/quickstart/create-a-repo">GitHub官方创建仓库教程</a> | 视频教程：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV12Z4y1N7Yc/">B站GitHub注册+仓库创建（3分钟）</a></p>
+<h3 id="2-2-安装Hexo框架（本地搭建博客雏形）"><a href="#2-2-安装Hexo框架（本地搭建博客雏形）" class="headerlink" title="2.2 安装Hexo框架（本地搭建博客雏形）"></a>2.2 安装Hexo框架（本地搭建博客雏形）</h3><p>Hexo是一款基于Node.js的静态博客框架，能快速生成博客页面，新手只需执行几个命令就能安装：</p>
+<ol>
+<li><p>打开终端（Windows用PowerShell，Mac用终端），先切换到你想存放博客文件的目录（例如D盘的blog文件夹，命令：<code>cd D:\blog</code>，Mac用户直接<code>cd ~/Documents/blog</code>）。</p>
+</li>
+<li><p>全局安装Hexo：输入命令 <code>npm install -g hexo-cli</code>，等待安装完成（如果报错，Windows用户以管理员身份运行终端，Mac用户在命令前加<code>sudo</code>，即<code>sudo npm install -g hexo-cli</code>）。</p>
+</li>
+<li><p>验证Hexo安装成功：输入 <code>hexo -v</code>，显示Hexo版本号则安装成功。</p>
+</li>
+<li><p>初始化博客项目：输入命令 <code>hexo init myblog</code>（myblog是博客项目的名称，可自定义，比如blog），等待初始化完成（会自动下载博客所需的基础文件）。</p>
+</li>
+<li><p>进入博客项目目录：输入 <code>cd myblog</code>（如果你的项目名称不是myblog，替换成自己的名称）。</p>
+</li>
+<li><p>安装依赖包：输入 <code>npm install</code>，等待依赖安装完成。</p>
+</li>
+<li><p>本地预览博客：输入 <code>hexo s</code>（s是server的缩写），终端显示“Hexo is running at <a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000/</a> . Press Ctrl+C to stop.”，说明本地博客已启动。</p>
+</li>
+<li><p>访问本地博客：打开浏览器，输入 <code>http://localhost:4000</code>，就能看到默认的Hexo博客页面啦！</p>
+</li>
+</ol>
+<p>如果本地预览时无法访问，可能是4000端口被占用，可更换端口：<code>hexo s -p 5000</code>（5000是新端口，可自定义），然后访问<code>http://localhost:5000</code>。</p>
+<p>参考链接：<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/setup.html">Hexo官方安装教程（中文）</a> | 视频教程：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1xq4y1q79Q/">B站Hexo本地搭建教程（10分钟）</a></p>
+<h3 id="2-3-配置Hexo，连接GitHub（实现博客线上访问）"><a href="#2-3-配置Hexo，连接GitHub（实现博客线上访问）" class="headerlink" title="2.3 配置Hexo，连接GitHub（实现博客线上访问）"></a>2.3 配置Hexo，连接GitHub（实现博客线上访问）</h3><p>本地博客搭建好后，需要配置Hexo，让它能将博客内容部署到GitHub Pages，这样别人就能通过互联网访问你的博客了。</p>
+<h4 id="步骤1：配置Git用户名和邮箱（关联GitHub账号）"><a href="#步骤1：配置Git用户名和邮箱（关联GitHub账号）" class="headerlink" title="步骤1：配置Git用户名和邮箱（关联GitHub账号）"></a>步骤1：配置Git用户名和邮箱（关联GitHub账号）</h4><p>在终端输入以下两个命令（替换成你GitHub的用户名和邮箱）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">git config --global user.name <span class="string">&quot;你的GitHub用户名&quot;</span></span><br><span class="line">git config --global user.email <span class="string">&quot;你的GitHub注册邮箱&quot;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="步骤2：安装部署插件（Hexo部署到GitHub的工具）"><a href="#步骤2：安装部署插件（Hexo部署到GitHub的工具）" class="headerlink" title="步骤2：安装部署插件（Hexo部署到GitHub的工具）"></a>步骤2：安装部署插件（Hexo部署到GitHub的工具）</h4><p>在博客项目目录（myblog）下，输入命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+
+<h4 id="步骤3：修改Hexo配置文件（关键！）"><a href="#步骤3：修改Hexo配置文件（关键！）" class="headerlink" title="步骤3：修改Hexo配置文件（关键！）"></a>步骤3：修改Hexo配置文件（关键！）</h4><p>打开博客项目目录（myblog），找到<code>_config.yml</code>文件（这是Hexo的核心配置文件，用VS Code打开编辑更方便），拉到文件最底部，找到“deploy”部分，修改为以下内容：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">https://github.com/你的GitHub用户名/你的GitHub用户名.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">main</span>  <span class="comment"># 注意：GitHub新仓库默认分支是main，不是master，别写错！</span></span><br></pre></td></tr></table></figure>
+
+<p>示例（假设我的GitHub用户名是zhangsan）：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">https://github.com/zhangsan/zhangsan.github.io.git</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">main</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：配置文件中冒号后面必须加空格（YAML语法要求），否则会报错！比如“type: git”不能写成“type:git”。</p>
+<h4 id="步骤4：部署博客到GitHub（上线！）"><a href="#步骤4：部署博客到GitHub（上线！）" class="headerlink" title="步骤4：部署博客到GitHub（上线！）"></a>步骤4：部署博客到GitHub（上线！）</h4><p>在博客项目目录下，依次执行以下3个命令（部署核心步骤）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">hexo clean  <span class="comment"># 清理缓存（每次部署前执行，避免残留文件导致报错）</span></span><br><span class="line">hexo g      <span class="comment"># 生成静态文件（g是generate的缩写，将博客内容生成HTML等文件）</span></span><br><span class="line">hexo d      <span class="comment"># 部署到GitHub（d是deploy的缩写，将生成的文件推送到GitHub仓库）</span></span><br></pre></td></tr></table></figure>
+
+<p>执行<code>hexo d</code>后，可能会弹出GitHub登录窗口，输入你的GitHub用户名和密码（或令牌）登录即可（如果是2021年后注册的GitHub账号，需要用个人访问令牌登录，获取令牌教程：<a target="_blank" rel="noopener" href="https://docs.github.com/zh/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token">GitHub官方令牌创建教程</a>）。</p>
+<p>部署成功后，打开浏览器，输入<code>https://你的GitHub用户名.github.io</code>（例如<a target="_blank" rel="noopener" href="https://zhangsan.github.io),就能看到你的博客已经上线了!(如果无法访问,可能是dns缓存问题,等待1-5分钟再试,或刷新浏览器)./">https://zhangsan.github.io），就能看到你的博客已经上线了！（如果无法访问，可能是DNS缓存问题，等待1-5分钟再试，或刷新浏览器）。</a></p>
+<h2 id="三、个性化博客"><a href="#三、个性化博客" class="headerlink" title="三、个性化博客"></a>三、个性化博客</h2><p>默认的Hexo博客样式比较简单，新手可以通过更换主题、修改配置，让博客更符合自己的风格，以下是最常用的个性化设置（全程可视化，无需复杂代码）。</p>
+<h3 id="3-1-更换主题（推荐2个新手友好主题）"><a href="#3-1-更换主题（推荐2个新手友好主题）" class="headerlink" title="3.1 更换主题（推荐2个新手友好主题）"></a>3.1 更换主题（推荐2个新手友好主题）</h3><p>Hexo有很多免费主题，新手推荐「Next」或「Butterfly」，样式美观、配置简单，且有详细的中文文档。</p>
+<h4 id="方案1：更换Next主题（简洁大气，适合技术博客）"><a href="#方案1：更换Next主题（简洁大气，适合技术博客）" class="headerlink" title="方案1：更换Next主题（简洁大气，适合技术博客）"></a>方案1：更换Next主题（简洁大气，适合技术博客）</h4><ol>
+<li><p>在博客项目目录下，输入命令下载Next主题：</p>
+</li>
+<li><p>修改Hexo核心配置文件<code>_config.yml</code>，找到“theme”字段，将默认的“landscape”改为“next”：</p>
+</li>
+<li><p>本地预览效果：输入<code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</code>（一键清理、生成、预览），打开浏览器访问<code>http://localhost:4000</code>，就能看到新主题了。</p>
+</li>
+<li><p>Next主题配置：进入<code>themes/next/_config.yml</code>（Next主题的配置文件），可修改博客标题、副标题、头像、菜单等（参考官方文档：<a target="_blank" rel="noopener" href="https://theme-next.js.org/docs/">Next主题官方配置文档（中文）</a>）。</p>
+</li>
+</ol>
+<h4 id="方案2：更换Butterfly主题（颜值高，功能全）"><a href="#方案2：更换Butterfly主题（颜值高，功能全）" class="headerlink" title="方案2：更换Butterfly主题（颜值高，功能全）"></a>方案2：更换Butterfly主题（颜值高，功能全）</h4><ol>
+<li><p>在博客项目目录下，输入命令下载Butterfly主题：</p>
+</li>
+<li><p>安装依赖包：</p>
+</li>
+<li><p>修改Hexo核心配置文件<code>_config.yml</code>，将“theme”改为“butterfly”：</p>
+</li>
+<li><p>本地预览：输入<code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</code>，查看效果。</p>
+</li>
+<li><p>Butterfly主题配置：参考官方文档（新手友好，图文教程）：<a target="_blank" rel="noopener" href="https://butterfly.js.org/docs/guide/">Butterfly主题官方文档（中文）</a></p>
+</li>
+</ol>
+<h3 id="3-2-修改博客基础信息（标题、头像等）"><a href="#3-2-修改博客基础信息（标题、头像等）" class="headerlink" title="3.2 修改博客基础信息（标题、头像等）"></a>3.2 修改博客基础信息（标题、头像等）</h3><p>打开Hexo核心配置文件<code>_config.yml</code>，找到以下字段，修改为自己的信息（冒号后加空格）：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="attr">title:</span> <span class="string">我的个人博客</span>  <span class="comment"># 博客标题</span></span><br><span class="line"><span class="attr">subtitle:</span> <span class="string">记录生活，分享知识</span>  <span class="comment"># 博客副标题（可选）</span></span><br><span class="line"><span class="attr">description:</span> <span class="string">这是一个新手搭建的Hexo博客</span>  <span class="comment"># 博客描述（搜索引擎收录用）</span></span><br><span class="line"><span class="attr">author:</span> <span class="string">你的名字</span>  <span class="comment"># 作者名称</span></span><br><span class="line"><span class="attr">language:</span> <span class="string">zh-CN</span>  <span class="comment"># 语言（中文）</span></span><br><span class="line"><span class="attr">timezone:</span> <span class="string">Asia/Shanghai</span>  <span class="comment"># 时区（上海）</span></span><br><span class="line"><span class="attr">avatar:</span> <span class="string">/images/avatar.jpg</span>  <span class="comment"># 头像路径（将头像图片放在source/images目录下，替换文件名）</span></span><br></pre></td></tr></table></figure>
+
+<p>修改完成后，执行<code>hexo clean &amp;&amp; hexo g &amp;&amp; hexo s</code>，本地预览效果。</p>
+<h2 id="四、发布第一篇博客（新手实操）"><a href="#四、发布第一篇博客（新手实操）" class="headerlink" title="四、发布第一篇博客（新手实操）"></a>四、发布第一篇博客（新手实操）</h2><p>博客搭建好后，最重要的就是发布文章了，Hexo支持Markdown格式（新手推荐用Markdown写文章，简单易上手，Markdown语法教程：<a target="_blank" rel="noopener" href="https://markdown.com.cn/basic-syntax/">Markdown基础语法（中文）</a>）。</p>
+<ol>
+<li><p>在博客项目目录下，输入命令创建新文章：</p>
+</li>
+<li><p>找到文章文件：执行命令后，会在<code>source/_posts</code>目录下生成一个<code>我的第一篇博客.md</code>文件（Markdown格式）。</p>
+</li>
+<li><p>编辑文章：用VS Code打开这个.md文件，按Markdown语法写文章，开头需要保留Front-matter（文章配置信息），示例如下：</p>
+</li>
+<li><p>发布文章：编辑完成后，执行以下命令部署到GitHub：</p>
+</li>
+<li><p>查看效果：打开浏览器，访问你的博客地址（https:&#x2F;&#x2F;你的用户名.github.io），就能看到刚发布的文章了！</p>
+</li>
+</ol>
+<h2 id="五、新手常见问题排查（避坑指南）"><a href="#五、新手常见问题排查（避坑指南）" class="headerlink" title="五、新手常见问题排查（避坑指南）"></a>五、新手常见问题排查（避坑指南）</h2><h3 id="问题1：执行命令时报错“bash-hexo-command-not-found”（Hexo未找到）"><a href="#问题1：执行命令时报错“bash-hexo-command-not-found”（Hexo未找到）" class="headerlink" title="问题1：执行命令时报错“bash: hexo: command not found”（Hexo未找到）"></a>问题1：执行命令时报错“bash: hexo: command not found”（Hexo未找到）</h3><p>解决方法：</p>
+<ul>
+<li><p>Windows用户：以管理员身份运行终端，重新执行<code>npm install -g hexo-cli</code>，安装完成后关闭终端重新打开。</p>
+</li>
+<li><p>Mac用户：执行<code>sudo npm install -g hexo-cli</code>（输入电脑密码），然后关闭终端重新打开。</p>
+</li>
+<li><p>参考链接：<a target="_blank" rel="noopener" href="https://hexo.io/zh-cn/docs/troubleshooting.html">Hexo官方问题排查</a></p>
+</li>
+</ul>
+<h3 id="问题2：部署后访问博客显示404（页面找不到）"><a href="#问题2：部署后访问博客显示404（页面找不到）" class="headerlink" title="问题2：部署后访问博客显示404（页面找不到）"></a>问题2：部署后访问博客显示404（页面找不到）</h3><p>解决方法：</p>
+<ul>
+<li><p>检查仓库名称是否正确：必须是“用户名.github.io”，大小写一致。</p>
+</li>
+<li><p>检查部署分支是否正确：Hexo配置文件中“branch”是否为“main”（GitHub新仓库默认分支是main，不是master）。</p>
+</li>
+<li><p>等待1-5分钟：DNS缓存需要时间，部署后可能不会立即生效。</p>
+</li>
+</ul>
+<h3 id="问题3：博客图片不显示"><a href="#问题3：博客图片不显示" class="headerlink" title="问题3：博客图片不显示"></a>问题3：博客图片不显示</h3><p>解决方法：</p>
+<ul>
+<li><p>图片路径：将图片放在<code>source/images</code>目录下，文章中引用路径为<code>/images/图片名称.jpg</code>（例如<code>![图片描述](/images/photo.jpg)</code>）。</p>
+</li>
+<li><p>批量图片处理：推荐安装插件<code>hexo-asset-image</code>，支持相对路径引用图片，安装命令：<code>npm install hexo-asset-image --save</code>（使用教程：<a target="_blank" rel="noopener" href="https://github.com/CodeFalling/hexo-asset-image">hexo-asset-image插件文档</a>）。</p>
+</li>
+</ul>
+<h2 id="六、进阶推荐（新手后期可尝试）"><a href="#六、进阶推荐（新手后期可尝试）" class="headerlink" title="六、进阶推荐（新手后期可尝试）"></a>六、进阶推荐（新手后期可尝试）</h2><p>如果想让博客更专业，可以后期尝试以下功能：</p>
+<ul>
+<li><p>购买自定义域名（如www.你的名字.com），替换默认的github.io域名（教程：<a target="_blank" rel="noopener" href="https://docs.github.com/zh/pages/configuring-a-custom-domain-for-your-github-pages-site">GitHub Pages自定义域名教程</a>）。</p>
+</li>
+<li><p>添加评论功能（推荐Valine，无需注册，教程：<a target="_blank" rel="noopener" href="https://valine.js.org/quickstart.html">Valine评论功能快速上手</a>）。</p>
+</li>
+<li><p>添加网站统计（推荐Google Analytics或百度统计，查看博客访问量）。</p>
+</li>
+<li><p>使用图床（如PicGo+阿里云OSS，存储博客图片，避免图片丢失）。</p>
+</li>
+</ul>
+<h2 id="七、总结"><a href="#七、总结" class="headerlink" title="七、总结"></a>七、总结</h2><p>新手搭建个人博客，核心流程就是：<strong>安装工具→注册GitHub→搭建Hexo本地博客→部署上线→个性化设置→发布文章</strong></p>
+<p>如果在搭建过程中遇到问题，优先查看官方文档或本文的参考链接</p>
+<p>最后，博客的核心是内容，搭建完成后，坚持更新文章，慢慢就能形成自己的个人品牌啦！祝你搭建顺利，早日拥有属于自己的个人博客～</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="https://wanan-prog2.github.io">wanan</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://wanan-prog2.github.io/2026/01/29/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/">https://wanan-prog2.github.io/2026/01/29/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="https://wanan-prog2.github.io" target="_blank">wanan's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%95%99%E7%A8%8B/">教程</a></div><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,x,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.6/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav id="pagination"><div class="pagination"></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">wanan</div><div class="author-info-description">这是一个很摆烂的blog…嗯对以后我可能会更不定时更新一些照片或者学习心得（如果很久很久以后这个东东还健在并且还有人来关注的话）
+</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">2</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">1</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/30/hello-world/" title="Hello World">Hello World</a><time datetime="2026-01-30T08:35:52.451Z" title="发表于 2026-01-30 16:35:52">2026-01-30</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2026/01/29/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/" title="博客搭建教程">博客搭建教程</a><time datetime="2026-01-29T15:20:20.000Z" title="发表于 2026-01-29 23:20:20">2026-01-29</time></div></div></div></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E6%95%99%E7%A8%8B/" style="font-size: 1.1em; color: #999">教程</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
+      
+    </div>
+  
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2026/01/">
+            <span class="card-archive-list-date">
+              一月 2026
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">2</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2026-01-30T18:05:13.685Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 - 2026 By wanan</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 8.1.1</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.5.4</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=5.5.4"></script><script src="/js/main.js?v=5.5.4"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
